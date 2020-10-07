@@ -19,7 +19,7 @@ class Board extends React.Component {
     };
   }
   handleClick(i) {
-    const squares = this.squares.slice();
+    const squares = this.state.squares.slice();
     if(calculateWinner(squares)|| squares[i]){
       return;
     }
@@ -39,7 +39,13 @@ class Board extends React.Component {
     );
   };
   render() {
-    const status = 'Next player: X';
+    const winner = calculateWinner(this.state.squares);
+    let status;
+    if (winner) {
+      status = 'Winner: ' + winner;
+    } else {
+      status = 'Next player: ' + (this.state.xIsNext ? 'X' : 'O');
+    }
 
     return (
       React.createElement("div", null,
